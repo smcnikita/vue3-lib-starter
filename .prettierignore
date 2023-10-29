@@ -1,8 +1,13 @@
 .idea
+
 .husky
+
 node_modules
+
 dist
+public
 
 package-lock.json
+
 .env
 .env.example

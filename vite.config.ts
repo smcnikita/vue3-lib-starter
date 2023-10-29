@@ -1,22 +1,27 @@
-import vue from '@vitejs/plugin-vue';
-import autoprefixer from 'autoprefixer';
-import path from 'path';
+import { fileURLToPath, URL } from 'node:url';
+
 import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
+
+import autoprefixer from 'autoprefixer';
+
 import dts from 'vite-plugin-dts';
 
-module.exports = defineConfig({
+// https://vitejs.dev/config/
+export default defineConfig({
   plugins: [
     vue(),
     dts({
-      insertTypesEntry: true,
+      tsconfigPath: './tsconfig.app.json',
+      compilerOptions: {
+        skipLibCheck: true,
+      },
     }),
   ],
 
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@lib': path.resolve(__dirname, 'src/lib'),
-      '@t': path.resolve(__dirname, 'types'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
 
@@ -29,18 +34,16 @@ module.exports = defineConfig({
 
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/lib/index.ts'),
+      entry: fileURLToPath(new URL('./src/index.ts', import.meta.url)),
       name: 'MyLib',
       formats: ['es', 'umd'],
       fileName: (format) => `my-lib.${format}.js`,
     },
-    // https://vitejs.dev/config/build-options.html#build-rollupoptions
     rollupOptions: {
       external: ['vue'],
       output: {
-        globals: {
-          vue: 'Vue',
-        },
+        exports: 'named',
+        globals: { vue: 'Vue' },
       },
     },
     emptyOutDir: true,

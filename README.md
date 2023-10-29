@@ -1,6 +1,6 @@
 # vue3-lib-starter
 
-This template should help get you started developing with Vue 3 in Vite.
+Starter pack for create library on vue 3, vite, typescript, sass and vitest
 
 ## Recommended IDE Setup
 
@@ -45,4 +45,16 @@ npm run dev
 
 ```sh
 npm run build
+```
+
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+```sh
+npm run test:unit
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
 ```
